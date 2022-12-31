@@ -6,6 +6,11 @@
 GtkWidget *entry;
 GtkWidget *label;
 
+void destroy (GtkWidget* widget, gpointer data)
+{
+    g_application_quit(G_APPLICATION(data));
+}
+
 static void activate(GtkApplication *app, gpointer data)
 {
     char *labels[21] = {
@@ -22,7 +27,7 @@ static void activate(GtkApplication *app, gpointer data)
     window = gtk_application_window_new(app);
     gtk_window_set_position(GTK_WINDOW(window),GTK_WIN_POS_CENTER);
     gtk_window_set_title(GTK_WINDOW(window), "RoskiCalc");
-    gtk_window_set_default_size(GTK_WINDOW(window), 400, 425);
+    gtk_window_set_default_size(GTK_WINDOW(window), 400, 380);
     gtk_window_set_resizable (GTK_WINDOW(window), FALSE);
 
     icon = create_pixbuf("icon.png");
@@ -132,10 +137,10 @@ static void activate(GtkApplication *app, gpointer data)
     PangoFontDescription *fontDesc = pango_font_description_from_string("calibri 25");
     gtk_widget_override_font(entry, fontDesc);
 
-    GtkWidget *button_about = gtk_button_new_with_label("About");
-    gtk_box_pack_end(GTK_BOX(box), button_about, FALSE, FALSE, 10);
-    gtk_box_reorder_child(GTK_BOX(box), button_about, 0);
-    gtk_widget_set_tooltip_text(button_about, "About this application");
+    GtkWidget *button_quit = gtk_button_new_with_label("Quit");
+    gtk_box_pack_end(GTK_BOX(box), button_quit, FALSE, FALSE, 10);
+    gtk_box_reorder_child(GTK_BOX(box), button_quit, 0);
+    gtk_widget_set_tooltip_text(button_quit, "Quit this application");
 
     for (int i = 0; i < 19; ++i)
     {
@@ -160,8 +165,8 @@ static void activate(GtkApplication *app, gpointer data)
 
     g_signal_connect(button[19], "clicked", G_CALLBACK(button_clear_clicked), NULL);
 
-
-    g_signal_connect(button_about, "clicked", G_CALLBACK(button_about_clicked), NULL);
+    
+    g_signal_connect(button_quit, "clicked", G_CALLBACK(destroy), app);
 
 
     gtk_widget_show_all(window);

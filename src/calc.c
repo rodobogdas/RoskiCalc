@@ -61,10 +61,15 @@ int is_operator(char token)
 
 
 // Check if token is an number:
-int is_number(const char *p)
+int is_number(const char *p, int c)
 {
-    if (*p == '-')
-        p++;    // The '-' is unary 
+    if (c == 0){
+        if (*p == '-')
+            p++;
+    }
+    else if (*p == '-' && *(p-1) == '(')
+                p++;
+
     if (*p == '.')
         p++;    // Numbers as ".3" are recognized
     return (isdigit((unsigned char) *p));
@@ -96,7 +101,7 @@ double calculate(const char *math_exp, int *status)
     while (*ptr)
     {
         // If token is a number:
-        if (is_number(ptr))
+        if (is_number(ptr, j))
         {
             double num = 0;
             char *end;

@@ -108,25 +108,6 @@ void button_equal_clicked(GtkButton *button, gpointer data)
     gtk_editable_set_position(GTK_EDITABLE(entry), cursor_position);
 }
 
-// Handle the "About" button:
-void button_about_clicked(GtkButton *button, gpointer data)
-{
-    GtkWidget *about = gtk_about_dialog_new();
-
-    gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(about), "rCalc"); gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(about), NULL);
-    gtk_about_dialog_set_website_label(GTK_ABOUT_DIALOG(about), "GitHub");
-    gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(about), "https://github.com/ilrffy");
-    gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(about), "(c) ilrffy");
-
-    gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(about), "A simple calculator");
-
-    gtk_dialog_run(GTK_DIALOG(about));
-    gtk_widget_destroy(about);
-
-    gtk_widget_set_can_focus(entry, TRUE);
-    gtk_widget_grab_focus(entry);
-}
-
 
 void clear_label(GtkWidget *wid, gpointer data)
 {
@@ -172,3 +153,4 @@ void button_undo_clicked(GtkButton *button, gpointer data)
         gtk_editable_set_position(GTK_EDITABLE(entry), cursor_position);
     }
 }
+
